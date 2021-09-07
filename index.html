@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bouncy Square</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #gameScreen {
+        border: 3px solid gold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="gameScreen" width="400" height="300"></canvas>
+
+    <script>
+      //declare variables
+      const FPS = 30;
+      var bs = 30; //box size
+      var bx, by;
+      var v = 80 / FPS;
+      var xv = v, yv = v;
+      var canvas, context;
+
+      //load canvas
+      canvas = document.getElementById("gameScreen");
+      context = canvas.getContext("2d");
+
+      bx = (canvas.width / 2) - (bs/2);
+      by = (canvas.height / 2) - (bs/2);
+
+      //set-up interval (gameloop)
+      setInterval(update, 1000 / FPS); // In-built function(update_func, 1000millisec/30)
+
+      function update(){
+        bx += xv;
+        by += yv;
+
+        if ((xv > 0 && bx + bs > canvas.width) || (xv < 0 && bx < 0)){
+          xv = -xv;
+        }
+        if ((yv > 0 && by + bs > canvas.height) || (yv < 0 && by < 0)){
+          yv = -yv;
+        }
+
+
+        context.fillStyle = "black";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = "yellow";
+        context.fillRect(bx, by, bs, bs);
+      }
+    </script>
+  </body>
+</html>
